@@ -1,0 +1,280 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Assignment\ 2}
+\newcommand{\hmwkDueDate}{May 5, 2017}
+\newcommand{\hmwkClass}{Power Systems Analysis}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Kamal Debnath}
+\newcommand{\hmwkAuthorName}{S.Reynolds (262538)}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+Consider the single-phase two-wire solid conductor in Figure 1. The distance between the centres of the wires is $d$, and each wire has a radius of $r$. Now, if the two wires form a single rectangular loop, then at any instance we know that the currents in the wire 1, $I_1$, flows in the opposite direction to the current in wire 2, $I_2$. That is to say that $I_1 = -I_2$. We note that the magnitude of the currents are equal, say $I$. Considering wire 1, we note that there are two flux linkages that are established. The first is the flux linkage that the wire has with itself, $\lambda_{11}$, which is found by considering a point that falls a distance of less than $r$ away from the wire. The second flux linkage on wire 1 is established due to the second wire. We call this $\lambda_{12}$, and is found by considering a distance of some point from the wire which is greater than $r$, but less than $d + r$. There is a third case to consider, where the distance is greater than $d + r$, however, we note that in this instance there is no flux linkage established because the current is flowing in opposite directions and of equal magnitude.\\
+
+\textbf{<Insert figure here>}
+
+Now the internal flux linkage is given by:
+\begin{align*}
+	\lambda_{11} = \frac{1}{2} \times I \times 10^{-7}
+\end{align*}
+
+The external flux linkage is given by:
+\begin{align*}
+	\lambda_{12} = 2 \times 10^{-7} \times I \ln (\frac{d-r}{r})
+\end{align*}
+
+The total flux linkage on wire 1 is found simply by adding the internal and external flux linkages:
+\begin{align*}
+	\lambda_1   &= \lambda_{11} + \lambda_{12}\\
+				&= \frac{1}{2} \times I_1 \times 10^{-7} + 2 \times 10^{-7} \ln \big(\frac{d-r}{r} \big)\\
+				&= 10^{-7} \cdot \big[\frac{1}{2} + 2 \times I \times \ln \big(\frac{d-r}{r} \big)\big]\\
+				&= I \cdot \bigg(\frac{1}{2} \times 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big] \bigg)
+\end{align*}
+
+Now, the inductance on wire one is given by:
+\begin{align*}
+	L_1 = \frac{\lambda_1}{I} = \frac{1}{2} \times 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big]
+\end{align*}
+\end{homeworkProblem}
+
+Given that the problem is symmetrical we reason that $L_1 = L_2$. Further, the total inductance is given by adding the inductance from wire 1 to the inductance form wire 2, that is:
+\begin{align*}
+	L_{total} 	&= L_1 + L_2\\
+				&= \frac{1}{2} \times 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big] + \frac{1}{2} \times 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big]\\
+				&= 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big]\\
+				&= \frac{4 \pi}{4 \pi} \times 10^{-7} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big]\\
+				&= \frac{\mu_0}{4 \pi} \cdot \big[ 1 + 4 \ln \big(\frac{d-r}{r} \big) \big]
+\end{align*}
+
+\begin{homeworkProblem}
+
+Calculation of transmission line parameters for stranded cables requires that we make approximations of the average distances between strands both within the transmission line itself, and between strands of two, individual stranded conductors.
+
+\textbf{<Insert figure here>}
+
+To find the distances between strands in a single conductor (that is a single transmission line) we use the GMR which is also known as $D_s$ in some texts. Consider cable A shown in Figure 2. We see that there are $n$ strands and therefore $n^2$ distances to consider. To find $D_s$ we use the following formula:
+\begin{align*}
+	GMR = D_s = \sqrt[n^2]{(r' d_{12} d_{13} ... d_{1n}) ... (r' d_{n1} d_{n2} ... d_{(n-1)n})}
+\end{align*}
+
+To find the distances between two conductors which consist of multiple strands, we use GMD which is also known as $D_m$ in some texts. Consider both cable A and B shown in Figure 2. We see that there are $n$ strands in cable A and m strands in cable B. Now, for GMD we define $d_{11}$ as the distance between strand 1 in cable A and strand 1 in cable B; $d_{12}$ as the distance between strand 1 in cable A and strand 2 in cable B; $d_{21}$ as the distance between strand 2 in cable A and strand 1 in cable B, and so on. Hence, we get the following formula:
+\begin{align*}
+	GMD = D_m = \sqrt[mn]{(d_{11} d_{12} ... d_{1m})(d_{21} d_{22} ... d_{2m})...(d_{n1} d_{n2}...d_{nm})}
+\end{align*}  
+ 
+\textbf{Part A}
+Consider a single conductor which consists of 2 strands as shown in Figure 3. We note that $n = 2$, and that:
+\begin{align*}
+	GMR &= \sqrt[2^2]{(r' \cdot d_{12})(r' \cdot d_{21})}
+\end{align*}
+ 
+We note that $r' = 0.7788r$ and that $d_{12} = d_{21} = 2r$, and hence:
+\begin{align*}
+ 	GMR &= \sqrt{0.7788r \cdot 2r}\\
+ 		&= 1.248r
+\end{align*}
+
+\textbf{Part B}
+Consider the single conductor which consists of 3 strands as shown in Figure 4. We note that $n = 3$, and that:
+\begin{align*}
+	GMR = \sqrt[3^2]{(r'd_{12}d_{13})(r'd_{21}d_{23})(r'd_{31}d_{32})}
+\end{align*}
+
+We note that $r' = 0.7788r$ and that all of the distances are the same and are $2r$ in length. Then we get:
+\begin{align*}
+	GMR &= \sqrt[9]{(r')^3 \cdot (2r)^6}\\
+		&= \sqrt[9]{(0.7788)^3 \cdot 2^6} \cdot r\\
+		&= 1.46 r
+\end{align*}
+
+\textbf{Part C}
+Consider the single conductor which consists of 3 strands as shown in Figure 5. We note that $n = 3$, and that:
+\begin{align*}
+	GMR = \sqrt[3^2]{(r'd_{12}d_{13})(r'd_{21}d_{23})(r'd_{31}d_{32})}
+\end{align*}
+
+We note that $r' = 0.7788r$, and that $d_{12} = d_{21} = d_{32} = d_{23} = 2r$, and that $d_{13} = d_{31} = 4r$. Hence, we see that:
+\begin{align*}
+	GMR &= \sqrt[9]{(r')^3\cdot (2r)^4 \cdot (4r)^2}\\
+		&= \sqrt[9]{(0.7788)^3 \cdot 2^4 \cdot 4^2} \cdot r\\
+		&= 1.703r
+\end{align*}
+
+\textbf{Part D}
+Consider the single conductor which consists of 3 strands as shown in Figure 5. We note that $n = 4$, and that:
+\begin{align*}
+	GMR = \sqrt[4^2]{(r'd_{12}d_{13}d_{14})(r'd_{21}d_{23}d_{24})(r'd_{31}d_{32}d_{34})(r'd_{41}d_{42}d_{43})}
+\end{align*}
+
+We note that $r' = 0.7788r$, and that given the geometric symmetry in the problem, that all distances are the same at $2r$. Hence, we get that:
+\begin{align*}
+	GMR &= \sqrt[16]{(r')^4 \cdot (2r)^4 \cdot (2r)^4 \cdot (2r)^4}\\
+		&= \sqrt[16]{(0.7788)^4 \cdot 2^4 \cdot 2^4 \cdot 2^4} \cdot r\\
+		&= 
+\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+Consider the three phase line shown in Figure \textbf{XX}. The solid lines are arranged in an equilateral triangle. Assuming that the three phase lines are balanced, it must be that $I_a + I_b + I_c = 0$. A point $M$ external to the conductors is also shown in Figure \textbf{XX}. The distances of the point from the phases a, b, and c are denoted by $D_{ma}$, $D_{mb}$, and $D_{mc}$. We note that the flux linked by the conductor a due to current $I_a$ includes the internal flux linkages but excludes the flux linkages beyond the point $m$. From the result we found in question 1 of this assignment, we note that:
+\begin{align*}
+	\lambda_{ma,a} = \frac{1}{2} \cdot I_a \cdot 2 \times 10^{-7} + 2 \times 10^{-7} \cdot I_a \cdot \ln(\frac{d_{pa} - r}{r})
+\end{align*}
+
+We note that $d \gg r$ and we instead write:
+\begin{align*}
+	\lambda_{ma,a} &= (\frac{1}{2} \times 10^{-7}) \cdot I_a \cdot \big(1 + 4 \ln \bigg(\frac{d_{pa}}{r}\bigg)\big)\\
+				 &= (4 \cdot \frac{1}{2} \times 10^{-7}) \cdot I_a \cdot \big(\frac{1}{4} + \ln \bigg(\frac{d_{pa}}{r}\bigg)\big)\\
+				 &= (2 \times 10^{-7}) \cdot I_a \cdot \big(\frac{1}{4} \cdot \ln (e) + \ln \bigg(\frac{d_{pa}}{r}\bigg)\big)\\
+				 &= (2 \times 10^{-7}) \cdot I_a \cdot \big(\ln \bigg(\frac{d_{pa}}{r \cdot e^{-\frac{1}{4}}}\bigg)\big)\\
+				 &= (2 \times 10^{-7}) \cdot I_a \cdot \ln \bigg(\frac{d_{pa}}{r'}\bigg)\\
+\end{align*}
+
+Hence, we see that:
+\begin{align*}
+	\lambda_{ap,a} = (2 \times 10^{-7}) \cdot I_a \cdot \ln \bigg(\frac{d_{pa}}{r'}\bigg)
+\end{align*}
+
+This is the flux of conductor a due to the conductor a at point p. Given the symmetry of the problem, we note that $\lambda_{bp,a}$ and $\lambda_{cp,a}$ are the similar to $\lambda_{ap,a}$. The principal of superposition allows us to sum these results to find the inductance of the conductor a, which is given as:
+\begin{align*}
+	L_a &= \lambda_{ap,a} + \lambda_{bp,a} + \lambda_{cp,a}\\
+		&= (2 \times 10^{-7}) \cdot I_a \cdot \ln \bigg(\frac{d_{pa}}{r'}\bigg) + (2 \times 10^{-7}) \cdot I_b \cdot \ln \bigg(\frac{d_{pb}}{r'}\bigg) + (2 \times 10^{-7}) \cdot I_c \cdot \ln \bigg(\frac{d_{pc}}{r'}\bigg)
+\end{align*}
+\end{homeworkProblem}
+\end{document}
