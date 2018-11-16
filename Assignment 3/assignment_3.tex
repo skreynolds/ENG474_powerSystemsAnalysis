@@ -610,4 +610,156 @@ The Thevenin equivalent for the Negative sequence circuit looking in from bus 3,
 	\caption{text}
 \end{figure}
 
+\section{Assignment 3.2 - PART A}
+Assuming a power system which is similar, but not exactly the same as the one shown in Figure 1 we consider the impact of line to ground fault in the network at bus three, with a fault resistance, $R_f$, of $5\si{\ohm}$. Given that the Thevenin impedances of the zero, positive, and negative sequence networks looking in from bus 3 are $j0.56$, $j0.2618$, and $j0.3619$, and the per unit values are based on 200$\si{\mega\volt\ampere}$ and 230$\si{\kilo\volt}$ bases, we can determine the fault current and the line to line voltages given the fault event. The fault resistance first needs to be converted to a per unit basis. We note that:
+\begin{align*}
+	Z_{base} = \frac{V^2_{base}}{S_{base}} = \frac{(230 \times 10^3)^2}{200 \times 10^6} = 264.50\si{pu}
+\end{align*}
+
+Hence, we find that:
+\begin{align*}
+	(Z_f)_{base} = \frac{5}{264} = 0.0189\si{pu}
+\end{align*}
+
+In the line to ground fault instance, we note that the sequence currents are identical and given by the following equation:
+\begin{align*}
+	I^0 = I^1 = I^2 &= \frac{V_f}{Z^0_{th} + Z^1_{th} + Z^2_{th} + 3Z_f}\\
+					&= \frac{1.0 \angle 0^o}{j0.56 + j0.2618 + j0.3619 + 3*0.0189}\\
+					&= \frac{1.0 \angle 0^o}{0.0567 \angle 4.51^o}\\
+					&= 0.0664 \angle -4.51^o \si{pu}
+\end{align*}
+
+Hence, we find the fault current for the $a$, $b$, and $c$ phase is given by the relationship $I^{abc}_f = A \cdot I^{012}_f$. Noting that the matrix $A$ is defined as:
+\[
+A
+=
+\begin{bmatrix}
+1 & 1 & 1\\
+1 & a^2 & a\\
+1 & a & a^2
+\end{bmatrix}
+\]
+
+The term $a$, seen in the $A$ matrix, is defined as:
+\begin{align*}
+	a = -\frac{1}{2} + j\frac{\sqrt{3}}{2}
+\end{align*}
+
+Hence, we get that:
+\[
+\begin{bmatrix}
+I^a_f\\I^b_f\\I^c_f
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1\\
+1 & a^2 & a\\
+1 & a & a^2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0.0664 \angle -4.51^o\\0.0664 \angle -4.51^o\\0.0664 \angle -4.51^o
+\end{bmatrix}
+\]
+
+Hence, we find that:
+\[
+\begin{bmatrix}
+I^a_f\\I^b_f\\I^c_f
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.2 \angle -4.5^o\\
+0\\
+0
+\end{bmatrix}
+\si{pu}
+\]
+\subsection{Assignment 3.2 - PART B}
+Now, to find the line to line voltage, we first need to find the voltages for each of the sequences:
+\[
+\begin{bmatrix}
+V_0\\V_1\\V_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\V_f\\0
+\end{bmatrix}
+-
+\begin{bmatrix}
+Z^0_{th} & 0 & 0\\
+0 & Z^1_{th} & 0\\
+0 & 0 & Z^2_{th}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+I^0\\I^1\\I^2
+\end{bmatrix}
+\]
+
+Hence, we see that:
+\[
+\begin{bmatrix}
+V_0\\V_1\\V_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\1.0\angle0^o\\0
+\end{bmatrix}
+-
+\begin{bmatrix}
+j0.56 & 0 & 0\\
+0 & j0.2618 & 0\\
+0 & 0 & j0.3619
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0.066 \angle -4.5^o\\0.066 \angle -4.5^o\\0.066 \angle -4.5^o
+\end{bmatrix}
+\]
+
+Evaluating the matrix expression above, we find that:
+\[
+\begin{bmatrix}
+V_0\\V_1\\V_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+-0.03696 \angle 85.5^o\\0.9987 \angle -0.99^o\\-0.0238 \angle 85.5^o
+\end{bmatrix}
+\]
+
+Similarly to the phase currents, we determine the phase voltages using the fact that $V^{abc}_f = A \cdot V^{012}_f$. Hence, the equation is as follows:
+\[
+\begin{bmatrix}
+V^a_f\\V^b_f\\V^c_f
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1\\
+1 & a^2 & a\\
+1 & a & a^2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+-0.03696 \angle 85.5^o\\0.9987 \angle -0.99^o\\-0.0238 \angle 85.5^o
+\end{bmatrix}
+\]
+
+Hence, we find that:
+\[
+\begin{bmatrix}
+V^a_f\\V^b_f\\V^c_f
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.9929 \angle -4.44^o\\1 \angle -119.05^o\\0.9868 \angle 120^o
+\end{bmatrix}
+\si{pu}
+\]
+
+\subsection{Assignment 3.3 - PART A}
+
+\subsection{Assignment 3.3 - PART B}
+
 \end{document}
